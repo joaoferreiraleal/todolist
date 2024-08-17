@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        #container {
+            width: 100%;
+            max-width: 500px;
+            background: #ffffff;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+            color: #00796b;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #00796b;
+            border-radius: 4px;
+            margin-right: 10px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            color: #ffffff;
+            background-color: #00796b;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            box-sizing: border-box;
+        }
+        button:hover {
+            background-color: #004d40;
+        }
+        #list ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        #list li {
+            background-color: #ffffff;
+            border: 1px solid #b2dfdb;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #list form {
+            margin: 0;
+        }
+        @media (max-width: 600px) {
+            form {
+                flex-direction: column;
+            }
+            input[type="text"] {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Todo List</h1>
+        <form action="/criar_todo" method="post">
+            <input type="text" name="todo_name" placeholder="Adicionar nova tarefa">
+            <button type="submit">Criar Todo</button>
+        </form>
+
+        <div id="list">
+            <ul>
+                {%for todo in todos%}
+                <li>
+                    {{todo}}
+                    <form action="/deletar_todo" method="post">
+                        <input type="hidden" name="todo_name" value="{{ todo }}">
+                        <button type="submit">X</button>
+                    </form>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
